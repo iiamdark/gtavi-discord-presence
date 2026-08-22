@@ -132,6 +132,29 @@ def connect_rpc(client_id: str, max_retries: int = 5, retry_delay: int = 4) -> O
 
 def run_presence(config: Dict[str, Any]):
     client_id = str(config.get("client_id", DEFAULT_CLIENT_ID)).strip()
+
+    if client_id == DEFAULT_CLIENT_ID or not client_id.isdigit():
+        print(f"{Colors.YELLOW}[!] Setup Required: Default Discord Client ID detected.{Colors.RESET}")
+        print(f"{Colors.CYAN}    To show 'Playing Grand Theft Auto VI' on your Discord profile:{Colors.RESET}")
+        print(f"    1. Open https://discord.com/developers/applications")
+        print(f"    2. Create an application named: {Colors.BOLD}Grand Theft Auto VI{Colors.RESET}")
+        print(f"    3. Copy the 'Application ID' from General Information.\n")
+        try:
+            user_input = input(f"{Colors.BOLD}Enter your Application ID (or press Enter to try default): {Colors.RESET}").strip()
+            if user_input and user_input.isdigit():
+                client_id = user_input
+                config["client_id"] = user_input
+                # Save updated config
+                try:
+                    with open(CONFIG_FILE, "w", encoding="utf-8") as f:
+                        json.dump(config, f, indent=2)
+                    print(f"{Colors.GREEN}[+] Saved new Client ID to config.json!{Colors.RESET}\n")
+                except Exception:
+                    pass
+        except (KeyboardInterrupt, EOFError):
+            print()
+            sys.exit(0)
+
     mode = config.get("mode", "dynamic").lower()
     interval = max(15, int(config.get("update_interval_seconds", 120)))
     show_elapsed = config.get("show_elapsed_time", True)
