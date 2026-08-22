@@ -182,15 +182,13 @@ def run_presence(config: Dict[str, Any]):
 
             if mode == "custom":
                 preset = config.get("custom_preset", {})
-                raw_large = preset.get("large_image", "gtavi_cover")
-                raw_small = preset.get("small_image", "lucia_icon")
                 payload = {
-                    "details": preset.get("details", "Playing GTA VI"),
-                    "state": preset.get("state", "Vice City"),
-                    "large_image": IMAGE_URLS.get(raw_large, raw_large),
-                    "large_text": preset.get("large_text", f"GTA VI ({build_id})"),
-                    "small_image": IMAGE_URLS.get(raw_small, raw_small),
-                    "small_text": preset.get("small_text", "Lucia"),
+                    "details": preset.get("details", "Playing as Lucia Caminos"),
+                    "state": preset.get("state", "Exploring Vice Beach (Free Roam)"),
+                    "large_image": preset.get("large_image", "logo1"),
+                    "large_text": preset.get("large_text", f"Grand Theft Auto VI - Playtest Build #8492"),
+                    "small_image": preset.get("small_image", "jason_and_lucia_robbery_landscape"),
+                    "small_text": preset.get("small_text", "Lucia | Level 24"),
                 }
             else:
                 # Dynamic mode

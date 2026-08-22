@@ -1,6 +1,6 @@
 {
-  "client_id": "123456789012345678",
-  "mode": "dynamic",
+  "client_id": "1540800743093702658",
+  "mode": "custom",
   "update_interval_seconds": 120,
   "show_elapsed_time": true,
   "enable_debug_metrics": true,
@@ -18,9 +18,9 @@
   "custom_preset": {
     "details": "Playing as Lucia Caminos",
     "state": "Exploring Vice Beach (Free Roam)",
-    "large_image": "gtavi_cover",
+    "large_image": "logo1",
     "large_text": "Grand Theft Auto VI - Playtest Build #8492",
-    "small_image": "lucia_icon",
+    "small_image": "jason_and_lucia_robbery_landscape",
     "small_text": "Lucia | Level 24"
   }
 }
