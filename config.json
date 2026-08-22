@@ -1,0 +1,26 @@
+{
+  "client_id": "123456789012345678",
+  "mode": "dynamic",
+  "update_interval_seconds": 120,
+  "show_elapsed_time": true,
+  "enable_debug_metrics": true,
+  "build_identifier": "v1.0.8492-qa (branch: leonida_rel_dvt)",
+  "buttons": [
+    {
+      "label": "Rockstar Games",
+      "url": "https://www.rockstargames.com/VI"
+    },
+    {
+      "label": "Social Club",
+      "url": "https://socialclub.rockstargames.com"
+    }
+  ],
+  "custom_preset": {
+    "details": "Playing as Lucia Caminos",
+    "state": "Exploring Vice Beach (Free Roam)",
+    "large_image": "gtavi_cover",
+    "large_text": "Grand Theft Auto VI - Playtest Build #8492",
+    "small_image": "lucia_icon",
+    "small_text": "Lucia | Level 24"
+  }
+}
