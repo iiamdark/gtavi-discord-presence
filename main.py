@@ -20,7 +20,7 @@ except ImportError:
     print("Run: pip install -r requirements.txt")
     sys.exit(1)
 
-from scenarios import generate_scenario, CHARACTERS, LOCATIONS
+from scenarios import generate_scenario, IMAGE_URLS, CHARACTERS, LOCATIONS
 
 CONFIG_FILE = "config.json"
 DEFAULT_CLIENT_ID = "123456789012345678"
@@ -182,12 +182,14 @@ def run_presence(config: Dict[str, Any]):
 
             if mode == "custom":
                 preset = config.get("custom_preset", {})
+                raw_large = preset.get("large_image", "gtavi_cover")
+                raw_small = preset.get("small_image", "lucia_icon")
                 payload = {
                     "details": preset.get("details", "Playing GTA VI"),
                     "state": preset.get("state", "Vice City"),
-                    "large_image": preset.get("large_image", "gtavi_cover"),
+                    "large_image": IMAGE_URLS.get(raw_large, raw_large),
                     "large_text": preset.get("large_text", f"GTA VI ({build_id})"),
-                    "small_image": preset.get("small_image", "lucia_icon"),
+                    "small_image": IMAGE_URLS.get(raw_small, raw_small),
                     "small_text": preset.get("small_text", "Lucia"),
                 }
             else:

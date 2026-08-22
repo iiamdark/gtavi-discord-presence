@@ -6,6 +6,17 @@ Authentic location names, mission titles, character states, and debug telemetry.
 import random
 from typing import Dict, Any, List
 
+# Default high-resolution direct URLs (load instantly in Discord without waiting for CDN caching)
+IMAGE_URLS = {
+    "gtavi_cover": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Grand_Theft_Auto_VI_logo.svg/1024px-Grand_Theft_Auto_VI_logo.svg.png",
+    "logo1": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Grand_Theft_Auto_VI_logo.svg/1024px-Grand_Theft_Auto_VI_logo.svg.png",
+    "lucia_icon": "https://media.rockstargames.com/rockstargames-newsite/img/global/games/fob/640/VI.jpg",
+    "jason_icon": "https://media.rockstargames.com/rockstargames-newsite/img/global/games/fob/640/VI.jpg",
+    "duo_icon": "https://media.rockstargames.com/rockstargames-newsite/img/global/games/fob/640/VI.jpg",
+    "jason_and_lucia_robbery_landscape": "https://media.rockstargames.com/rockstargames-newsite/img/global/games/fob/640/VI.jpg",
+    "wanted_icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Grand_Theft_Auto_VI_logo.svg/1024px-Grand_Theft_Auto_VI_logo.svg.png",
+}
+
 CHARACTERS = [
     {"name": "Lucia Caminos", "icon": "lucia_icon", "role": "Heist Specialist"},
     {"name": "Jason Duane", "icon": "jason_icon", "role": "Wheelman"},
@@ -156,14 +167,22 @@ SCENARIO_TEMPLATES: List[Dict[str, Any]] = [
 ]
 
 
-def generate_scenario(custom_build_tag: str = None) -> Dict[str, str]:
+def generate_scenario(custom_build_tag: str = None, use_direct_urls: bool = True) -> Dict[str, str]:
     """Generates a realistic randomized GTA VI activity payload."""
     template = random.choice(SCENARIO_TEMPLATES)
     character = random.choice(CHARACTERS)
     location = random.choice(LOCATIONS)
     build = custom_build_tag or random.choice(BUILD_TAGS)
 
-    small_image = template["small_image_override"] or character["icon"]
+    small_image_key = template["small_image_override"] or character["icon"]
+    large_image_key = template["large_image"]
+
+    if use_direct_urls:
+        large_image = IMAGE_URLS.get(large_image_key, large_image_key)
+        small_image = IMAGE_URLS.get(small_image_key, small_image_key)
+    else:
+        large_image = large_image_key
+        small_image = small_image_key
 
     details = template["details"]
     state = template["state_template"].format(
@@ -182,7 +201,7 @@ def generate_scenario(custom_build_tag: str = None) -> Dict[str, str]:
     return {
         "details": details,
         "state": state,
-        "large_image": template["large_image"],
+        "large_image": large_image,
         "large_text": large_text,
         "small_image": small_image,
         "small_text": small_text,
